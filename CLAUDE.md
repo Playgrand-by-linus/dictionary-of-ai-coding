@@ -18,6 +18,12 @@ The first sentence used in a paragraph must be extra-clear. Don't attempt to pre
 
 Whenever a new entry is added, search through all other entries to see if it can be referenced there. The presence of a new term may be able to reduce verbosity in other entries.
 
+## Traditional Chinese mirror
+
+`dictionary-zh-tw/` holds a parallel set of entries in Traditional Chinese, one file per term in `dictionary/`, same filename. Term names and filenames stay in English; the frontmatter `description`, body prose, tables, and Usage dialogue are written in Traditional Chinese. All the style rules above apply to this set too — symptom-weaving, 200-word-equivalent substance, first-occurrence-only linking (linking within the Chinese set, to `dictionary-zh-tw/` filenames), tables, plain de-hyped register.
+
+`internal/Curriculum.zh-TW.md` mirrors `internal/Curriculum.md` (same terms, section titles translated). `internal/README.template.zh-TW.md` mirrors the English template. `npm run generate:zh-tw` regenerates `README.zh-TW.md` from these. When adding a new term to the dictionary, add both the English and the Traditional Chinese entry, and list the term in both curriculum files.
+
 ## Agent skills
 
 ### Issue tracker
