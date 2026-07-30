@@ -22,7 +22,7 @@
 
 這本辭典就是為此而生。**AI coding 的詞彙，翻譯成白話文**。
 
-本頁為 [AI Coding Dictionary](https://www.aihero.dev/ai-coding-dictionary) 的繁體中文翻譯版本，術語名稱維持英文原文，說明文字譯為繁體中文。若要看英文原版，見 [README.md](../README.md)。
+本頁為 [AI Coding Dictionary](https://www.aihero.dev/ai-coding-dictionary) 的繁體中文翻譯版本，術語名稱維持英文原文，說明文字譯為繁體中文。若要看英文原版，見 [README.md](./README.md)。
 
 **想要更多不只是詞彙的內容？** 加入 62,000+ 位開發者的行列，訂閱 **[aihero.dev/newsletter](https://www.aihero.dev/s/dictionary-newsletter)**，取得最新技能、AI engineering 的思考，以及讓你保持領先的資源（英文內容）。
 
