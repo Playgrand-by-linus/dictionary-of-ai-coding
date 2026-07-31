@@ -1,5 +1,7 @@
 #!/usr/bin/env -S npx tsx
 // Generate README.md from internal/Curriculum.md + dictionary/*.md + internal/README.template.md.
+// Pass a locale suffix (e.g. `zh-TW`) to instead generate README.<locale>.md from
+// internal/Curriculum.<locale>.md + dictionary-<locale-lowercase>/*.md + internal/README.template.<locale>.md.
 
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -7,10 +9,15 @@ import { dirname, join } from "node:path";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = dirname(HERE);
-const CURRICULUM = join(HERE, "Curriculum.md");
-const TEMPLATE = join(HERE, "README.template.md");
-const DICT_DIR = join(ROOT, "dictionary");
-const OUTPUT = join(ROOT, "README.md");
+const LOCALE = process.argv[2] ?? "";
+const suffix = LOCALE ? `.${LOCALE}` : "";
+const CURRICULUM = join(HERE, `Curriculum${suffix}.md`);
+const TEMPLATE = join(HERE, `README.template${suffix}.md`);
+const DICT_DIR = join(
+  ROOT,
+  LOCALE ? `dictionary-${LOCALE.toLowerCase()}` : "dictionary"
+);
+const OUTPUT = join(ROOT, `README${suffix}.md`);
 const MARKER = "<!-- CURRICULUM -->";
 const TOC_MARKER = "<!-- TOC -->";
 
@@ -155,8 +162,8 @@ function main(): void {
   const banner =
     "<!--\n" +
     "  GENERATED FILE — DO NOT EDIT.\n" +
-    "  Source: dictionary/*.md, internal/Curriculum.md, internal/README.template.md\n" +
-    "  Regenerate: npm run generate\n" +
+    `  Source: ${DICT_DIR.slice(ROOT.length + 1)}/*.md, internal/Curriculum${suffix}.md, internal/README.template${suffix}.md\n` +
+    `  Regenerate: npm run generate${LOCALE ? `:${LOCALE.toLowerCase()}` : ""}\n` +
     "-->\n\n";
   writeFileSync(
     OUTPUT,
