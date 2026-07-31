@@ -1,6 +1,7 @@
 #!/usr/bin/env -S npx tsx
-// Generate README.md from internal/Curriculum.md + dictionary/*.md + internal/README.template.md.
-// Pass a locale suffix (e.g. `zh-TW`) to instead generate README.<locale>.md from
+// Generate README.md (Traditional Chinese, primary) from internal/Curriculum.md +
+// dictionary/*.md + internal/README.template.md.
+// Pass a locale suffix (e.g. `en`) to instead generate README.<locale>.md from
 // internal/Curriculum.<locale>.md + dictionary-<locale-lowercase>/*.md + internal/README.template.<locale>.md.
 
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";

@@ -1,17 +1,17 @@
 ---
-description: Each token has a finite amount of influence to distribute across the rest of the context. Per-token, doesn't grow when context does.
+description: 每個 token 能分配出去的影響力是有限的，要分給 context 裡其他所有 token。是逐 token 算的，不會因為 context 變大就跟著變大。
 ---
 
-Each [token](./Token.md) has a finite amount of influence to distribute across the rest of the [context](./Context.md). Heavy influence on [one relationship](./Attention%20relationship.md) leaves less for others. The budget is per-token and doesn't grow when the context does, which is why long [sessions](./Session.md) dilute.
+每個 [token](./Token.md) 能拿來分配的影響力是有限的，要分給 [context](./Context.md) 裡其他所有 token。在[某一組關係](./Attention%20relationship.md)上分配得多，留給其他關係的就少。這個預算是逐 token 計算的，不會因為 context 變大就跟著變大，這也是為什麼長時間的 [session](./Session.md) 會被稀釋。
 
-Think of it as signal and noise. Your instruction is a signal at fixed volume; every other token in the [context window](./Context%20window.md) is competing sound. The instruction never gets quieter — it's still there, character for character — but as the context grows, the room gets louder around it, and the signal-to-noise ratio drops. An instruction that was the loudest thing at 10k tokens of context is background hum at 150k. This is the mechanism behind [attention degradation](./Attention%20degradation.md): the model doesn't forget; the signal gets lost in the noise.
+可以把它想成訊號跟雜訊。你的指示是一個音量固定的訊號；[context window](./Context%20window.md) 裡其他每一個 token 都是在跟它搶音量的雜音。指示本身不會變小聲——它還在那裡，一字不差——但隨著 context 變大，周圍的環境越來越吵，訊噪比就跟著往下掉。一個在 1 萬 token 的 context 裡最響亮的指示，到了 15 萬 token 就變成背景雜音。這就是 [attention degradation](./Attention%20degradation.md) 背後的機制：model 不是忘記了，是訊號被淹沒在雜訊裡。
 
-The symptom reads as disobedience — the agent agreed to a constraint early on and then drifts from it, and re-pasting the constraint helps only briefly. The cause isn't the instruction; it's everything else in the window competing with it.
+這個症狀讀起來像是不聽話——agent 一開始答應遵守某個限制，之後卻慢慢偏離，把限制重貼一次也只有短暫的效果。問題不在那條指示本身，而在 context window 裡其他所有跟它搶注意力的東西。
 
-What you can control is what goes into the context. Content that doesn't serve the task isn't neutral — it's noise over everything that does. Keep the window small, [clear](./Clearing.md) when the accumulated context stops paying for itself, and restate the constraints that matter instead of trusting their early mention to hold.
+你能控制的是放進 context 裡的內容。跟任務無關的內容不是中性的——它是壓在所有有用內容之上的雜訊。把 context window 維持得小一點，在累積的 context 不再划算的時候就 [clear](./Clearing.md)，並且重申真正重要的限制，而不是相信它早先提過一次就會一直有效。
 
-_Usage:_
+_使用情境：_
 
-"Why does it keep ignoring the schema I pasted at the top?"
+「為什麼它一直不理會我一開始貼的 schema？」
 
-"We're well into the [dumb zone](./Smart%20zone.md) — every token's attention budget is fixed, but the context kept growing. The signal on the schema is now competing with thousands of newer tokens."
+「我們已經深入 [dumb zone](./Smart%20zone.md) 了——每個 token 的 attention budget 是固定的，但 context 一直在變大。Schema 上的訊號現在正在跟成千上萬個更新的 token 搶注意力。」

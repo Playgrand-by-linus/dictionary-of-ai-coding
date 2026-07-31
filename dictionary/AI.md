@@ -1,27 +1,27 @@
 ---
-description: A moving label, not a technology. Points at whatever computers can newly, impressively do — right now, large language models.
+description: 一個會移動的標籤，不是一項技術。指向電腦目前能做到、令人印象深刻的新事——現在指的是 large language model。
 ---
 
-A moving label, not a technology. "AI" doesn't name a fixed thing the way [model](./Model.md) or [token](./Token.md) does — it points at whatever computers can newly, impressively do. Right now it points at large language models. It has pointed at very different things before:
+一個會移動的標籤，不是一項技術。「AI」不像 [model](./Model.md) 或 [token](./Token.md) 那樣指稱一個固定的東西——它指向的是電腦目前能做到、令人印象深刻的新事。現在它指的是 large language model。它以前指過完全不同的東西：
 
-| Era       | What "AI" meant                                                                                       |
-| --------- | ----------------------------------------------------------------------------------------------------- |
-| 1950s     | Symbolic reasoning — theorem provers, checkers programs.                                              |
-| 1960s–70s | Rule-based symbolic programs — ELIZA, SHRDLU.                                                         |
-| 1980s     | Expert systems — thousands of hand-written if-then rules encoding human expertise.                    |
-| 1990s     | Game-tree search — Deep Blue beating Kasparov (1997). Researchers avoided the word "AI" entirely      |
-| 2000s     | Statistical machine learning — spam filters, recommenders. Still sold as "machine learning", not "AI" |
-| 2010s     | Deep learning — image recognition (AlexNet, 2012), AlphaGo (2016).                                    |
-| 2020s     | Large language models — ChatGPT (2022) made "AI" mean chatbots                                        |
+| 年代          | 「AI」當時指的是                                                                   |
+| ------------- | ---------------------------------------------------------------------------------- |
+| 1950 年代     | 符號推理——定理證明器、下棋程式。                                                   |
+| 1960～70 年代 | 規則式的符號程式——ELIZA、SHRDLU。                                                  |
+| 1980 年代     | 專家系統——成千上萬條手寫的 if-then 規則，用來編碼人類專業知識。                    |
+| 1990 年代     | 賽局樹搜尋——深藍打敗卡斯帕洛夫（1997 年）。研究者當時完全避開「AI」這個詞          |
+| 2000 年代     | 統計機器學習——垃圾郵件過濾器、推薦系統。當時還是叫「machine learning」，不叫「AI」 |
+| 2010 年代     | 深度學習——影像辨識（AlexNet，2012 年）、AlphaGo（2016 年）。                       |
+| 2020 年代     | Large language model——ChatGPT（2022 年）讓「AI」變成聊天機器人的代名詞             |
 
-The pointer moves by a known mechanism, sometimes called the AI effect: once a technique works reliably, it gets renamed — it's "just" search, "just" statistics — and "AI" slides forward to the next unsolved thing. The observation is old. Bertram Raphael put it this way in 1971: "AI is a collective name for problems which we do not yet know how to solve properly by computer." Larry Tesler's version, from around 1979: "Intelligence is whatever machines haven't done yet."
+這個指稱會移動，靠的是一個已知的機制，有時被稱為 AI effect：一項技術一旦穩定可靠，它就會被改名——變成「只是」搜尋、「只是」統計——然後「AI」這個詞就往前挪到下一個還沒解決的問題上。這個現象早就有人講過。Bertram Raphael 在 1971 年這樣講：「AI 是我們還不知道該如何用電腦好好解決的那些問題的統稱。」Larry Tesler 大約在 1979 年的講法是：「智慧，就是機器還沒做到的事。」
 
-This is why conversations about AI so often talk past each other. A claim like "AI can't reason" or "AI is overhyped" carries a hidden timestamp — it may be about expert systems, about 2010s image classifiers, or about last month's LLM, and each reference supports a different conclusion. When a discussion about AI stalls, the fix is usually to swap the word for whichever precise term is actually meant: the model, the [harness](./Harness.md), the [agent](./Agent.md), the [context](./Context.md) it was given.
+這就是為什麼談 AI 的對話常常各說各話。像「AI 不會推理」或「AI 被過度炒作」這類說法，都帶著一個隱藏的時間戳記——可能講的是專家系統，可能講的是 2010 年代的影像分類器，也可能講的是上個月的 LLM，而每一種指涉都會撐出不同的結論。當一場關於 AI 的討論卡住的時候，通常的解法是把「AI」換成真正意指的那個精確詞彙：model、[harness](./Harness.md)、[agent](./Agent.md)，或是給它的那份 [context](./Context.md)。
 
-_Avoid:_ "AI" in any technical claim — name the part you mean instead. "AI coding" as a label for the practice is fine; "the AI is hallucinating" is not.
+*避免使用：*在任何技術性的論斷裡使用「AI」——直接點名你指的是哪個部分。用「AI coding」當作這個實踐領域的名稱沒問題；但「AI 在產生幻覺」這種講法就不行。
 
-_Usage:_
+_使用情境：_
 
-"The CTO wants to know whether AI could handle the triage queue."
+「CTO 想知道 AI 能不能處理分流佇列。」
 
-"Translate that before scoping it — she means an LLM in a harness with access to the ticket system. 'AI' on its own isn't a spec."
+「先把這句話翻譯清楚再評估範圍——她指的是接在 harness 裡、能存取工單系統的 LLM。單講『AI』不算一份 spec。」

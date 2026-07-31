@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "generate": "tsx internal/generate-readme.ts",
-    "generate:zh-tw": "tsx internal/generate-readme.ts zh-TW",
+    "generate:en": "tsx internal/generate-readme.ts en",
     "prepare": "husky"
   },
   "devDependencies": {

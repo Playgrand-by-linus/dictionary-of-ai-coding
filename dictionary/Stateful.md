@@ -1,24 +1,24 @@
 ---
-description: Carries information forward. Sessions are stateful across turns; agents can be made stateful across sessions via a memory system.
+description: 把資訊往後帶。session 在 turn 之間是 stateful 的；agent 可以透過 memory system 在 session 之間做到 stateful。
 ---
 
-Carries information forward. A [session](./Session.md) is stateful across [turns](./Turn.md) — [context](./Context.md) accumulates as the session runs, which is why long sessions drift into the [dumb zone](./Smart%20zone.md). An [agent](./Agent.md) can be made stateful across **sessions** by adding a [memory system](./Memory%20system.md) that persists information into the [environment](./Environment.md) and reloads it at the start of future sessions. The [model](./Model.md) is never stateful; any apparent continuity is the [harness](./Harness.md) re-feeding context. Counterpart to [stateless](./Stateless.md).
+把資訊往後帶。[session](./Session.md) 在 [turn](./Turn.md) 之間是 stateful 的——[context](./Context.md) 會隨著 session 進行不斷累積，這也是為什麼長時間的 session 會漂向 [dumb zone](./Smart%20zone.md)。[agent](./Agent.md) 可以透過加上一套 [memory system](./Memory%20system.md)，把資訊寫進 [environment](./Environment.md) 並在未來 session 開始時重新載入，做到跨 **session** 的 stateful。[model](./Model.md) 本身永遠不是 stateful 的；任何看起來連續的感覺，都是 [harness](./Harness.md) 把 context 重新餵回去的結果。與 [stateless](./Stateless.md) 相對。
 
-Where state lives at each layer:
+各層級的 state 存在哪裡：
 
-| Layer       | Stateful?       | How                                                                                                                    |
-| ----------- | --------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Model       | Never           | [Parameters](./Parameters.md) are frozen; it sees only what's in each request                                          |
-| Session     | Across turns    | The harness appends every message and [tool result](./Tool%20result.md) to the context                                 |
-| Harness     | Across sessions | Memory files, [AGENTS.md](./AGENTS.md.md), [handoff artifacts](./Handoff%20artifact.md) — written down, reloaded later |
-| Environment | Always          | Files persist whether or not any session is running                                                                    |
+| 層級        | Stateful？ | 怎麼做到                                                                                               |
+| ----------- | ---------- | ------------------------------------------------------------------------------------------------------ |
+| Model       | 從不       | [Parameters](./Parameters.md) 是凍結的；它只看得到每次請求裡的內容                                     |
+| Session     | 跨 turn    | harness 把每一則訊息和 [tool result](./Tool%20result.md) 都附加進 context                              |
+| Harness     | 跨 session | 記憶檔案、[AGENTS.md](./AGENTS.md.md)、[handoff artifact](./Handoff%20artifact.md)——寫下來，之後再載入 |
+| Environment | 永遠       | 不論有沒有 session 在跑，檔案都會留著                                                                  |
 
-Each layer's statefulness is built by re-reading something stored a layer below: the session feels continuous because the harness re-sends the message history to the stateless model, and the agent remembers across sessions because the harness re-loads files from the environment. No state is ever stored in the model itself.
+每一層的 stateful 特性，都是靠重新讀取下面一層存的東西做出來的：session 感覺起來連續，是因為 harness 把訊息紀錄重新送給 stateless 的 model；agent 能跨 session 記住東西，是因為 harness 把檔案從 environment 重新載入。model 本身從來沒有存過任何 state。
 
-State isn't always wanted. Everything carried forward influences what comes next, so a wrong assumption made early in a session is carried forward too. [Clearing](./Clearing.md) is the deliberate act of throwing session state away and starting from what's written down.
+State 不是永遠都想要的。凡是被往後帶的東西都會影響接下來發生什麼，所以 session 早期做出的錯誤假設，也會一路被帶下去。[clearing](./Clearing.md) 就是刻意把 session state 丟掉、從寫下來的東西重新開始的動作。
 
-_Usage:_
+_使用情境：_
 
-"It remembered my preferences from yesterday — does that mean the model learned them?"
+「它記得我昨天的偏好——這代表 model 學到了嗎？」
 
-"No, the agent's stateful because the harness wrote them to a memory file and reloaded them at session start. The model itself saw nothing of yesterday."
+「不是，agent 是 stateful 的，因為 harness 把偏好寫進了記憶檔案，並在 session 開始時重新載入。model 本身完全沒看到昨天發生的事。」

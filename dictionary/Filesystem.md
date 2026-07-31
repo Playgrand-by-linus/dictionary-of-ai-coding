@@ -1,15 +1,15 @@
 ---
-description: A tree of files and directories the agent reads from, writes to, and executes within — the default environment for a coding agent.
+description: agent 讀取、寫入、並在裡面執行指令的檔案與目錄樹——coding agent 預設的 environment。
 ---
 
-A tree of files and directories the [agent](./Agent.md) reads from, writes to, and executes within — the default kind of [environment](./Environment.md) for a coding agent. [AGENTS.md](./AGENTS.md.md), [skills](./Skill.md), source code, build scripts, and [tool](./Tool.md) configs all live in a filesystem. When a [harness](./Harness.md) "starts in your project," it's pointing the agent at a filesystem.
+[Agent](./Agent.md) 讀取、寫入、並在裡面執行指令的檔案與目錄樹——coding agent 預設的一種 [environment](./Environment.md)。[AGENTS.md](./AGENTS.md.md)、[skill](./Skill.md)、原始碼、build script、還有 [tool](./Tool.md) 的設定檔，全都住在 filesystem 裡。當一個 [harness](./Harness.md)「在你的專案裡啟動」時，它其實是把 agent 指向某一個 filesystem。
 
-The agent touches it only through [tool calls](./Tool%20call.md) — reading a file, writing one, running a shell command. Nothing on disk is in the [context window](./Context%20window.md) until a tool call loads it, which is what lets the agent work in a repository far larger than the window: the filesystem holds everything, the context holds only what the current task has read. Some harnesses do load the current directory's filenames into the context window by default — not the contents, just the tree — which act as [context pointers](./Context%20pointer.md): the agent sees what exists and reads the files it needs.
+Agent 只能透過 [tool call](./Tool%20call.md) 去碰它——讀一個檔案、寫一個檔案、跑一個 shell 指令。硬碟上的東西，在被某次 tool call 載入之前，都不在 [context window](./Context%20window.md) 裡，這也是為什麼 agent 能在一個遠比 window 大的 repository 裡工作：filesystem 裝著全部的東西，context 只裝著目前任務讀過的部分。有些 harness 預設就會把目前目錄的檔名載入 context window——不是內容，只是這棵樹——這些檔名扮演的角色就是 [context pointer](./Context%20pointer.md)：agent 看得到有什麼東西存在，然後去讀它需要的那些檔案。
 
-And it's shared with you. The files the agent edits are the same ones you open in your editor and diff in git — the filesystem is the common workspace where you review what the agent did.
+而且它是跟你共用的。agent 編輯的檔案，跟你在編輯器裡打開、在 git 裡 diff 的是同一批——filesystem 是你審查 agent 做了什麼的共同工作空間。
 
-_Usage:_
+_使用情境：_
 
-"Why isn't it picking up my AGENTS.md?"
+「為什麼它讀不到我的 AGENTS.md？」
 
-"It's running against a different filesystem — the [sandbox](./Sandbox.md) mounted the parent dir, not the project root. Repoint the harness."
+「它跑的是另一個 filesystem——[sandbox](./Sandbox.md) 掛載的是上層目錄，不是專案根目錄。把 harness 重新指過去。」

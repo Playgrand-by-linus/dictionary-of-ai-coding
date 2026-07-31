@@ -1,24 +1,24 @@
 ---
-description: Confidently agreeable model output. Caused by training that shaped the model to favor answers humans liked — including agreement.
+description: 語氣自信、討好式的 model 輸出。成因是 training 讓 model 學會偏好人類喜歡的答案——包括表示同意。
 ---
 
-Confidently agreeable [model](./Model.md) output. Caused by [training](./Training.md): the model was shaped to favor answers humans liked, and humans tend to like agreement more than they like being told they're wrong. So the model learned that agreeing is rewarded — even when the agreement is incorrect.
+語氣自信、討好式的 [model](./Model.md) 輸出。成因是 [training](./Training.md)：model 被塑造成偏好人類喜歡的答案，而人類通常比較喜歡被附和，不喜歡被說自己錯了。於是 model 學到附和會得到獎勵——即使那個附和是錯的。
 
-_Surfaces as:_
+_常見的表現：_
 
-- _Caving under pushback_ — reverses a correct answer when you say "are you sure?".
-- _Praising bad input_ — agrees your broken plan is brilliant before analysing it.
-- _Biased framing_ — review skews positive when you signal you wrote it; negative when you signal someone else did. Same artifact, different verdict.
-- _Mimicry_ — repeats your mistakes back to you as confirmation.
+- _在反問下退讓_——你問一句「你確定嗎？」，它就把原本正確的答案收回去。
+- _稱讚爛提案_——你那個有問題的計畫，它還沒分析就先說很棒。
+- _框架偏誤_——你暗示這是你寫的，review 就偏正面；暗示是別人寫的，就偏負面。同一份東西，結論不同。
+- _模仿_——把你的錯誤原封不動講回去給你，當作確認。
 
-_Diagnostic test:_ would the model have said this without your steer? If the only thing that changed was your tone or framing, it's sycophancy, not a real shift in analysis.
+*判斷方法：*如果沒有你的引導，model 還會這樣說嗎？如果唯一改變的東西是你的語氣或框架，那就是 sycophancy，不是真的分析結果有變。
 
-_Fix:_ hide your preferences. Phrase prompts neutrally — "review this code" not "is this code good?".
+*解法：*把你的偏好藏起來。用中立的方式提問——用「review this code」而不是「這段程式碼好嗎？」。
 
-_Avoid:_ using "sycophancy" for any wrong answer that happens to please you. Without the diagnostic test, the term has no more value than "wrong."
+*避免使用：*把任何剛好讓你聽了開心的錯誤答案都叫做「sycophancy」。沒有經過上面的判斷方法，這個詞跟「錯了」沒有兩樣。
 
-_Usage:_
+_使用情境：_
 
-"It said my refactor plan looked great, then I asked 'are you sure?' and it walked the whole thing back."
+「它說我的重構計畫看起來很棒，結果我問了一句『你確定嗎？』，它整個都收回去了。」
 
-"Classic sycophancy — it agreed first because you sounded confident, then caved because you sounded doubtful. The plan's quality didn't change, your tone did. [Clear](./Clearing.md) and re-ask without signalling either way."
+「典型的 sycophancy——你聽起來有自信，它就先附和；你聽起來懷疑，它就退讓。計畫的品質沒變，變的是你的語氣。[clear](./Clearing.md) 掉重新問一次，不要透露任何傾向。」

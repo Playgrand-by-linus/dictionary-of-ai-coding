@@ -1,23 +1,23 @@
 ---
-description: A teachable capability bundled as a unit — kept out of the context window until a context pointer pulls it in for the task at hand.
+description: 一個可教的能力，打包成一個單位——放在 environment 裡，直到 context pointer 把它拉進當下任務要用的 context window。
 ---
 
-A teachable capability bundled as a unit — instructions and resources for doing one task well, kept in the [environment](./Environment.md) until a [context pointer](./Context%20pointer.md) pulls it into the [context window](./Context%20window.md) for the task at hand. The unit of [progressive disclosure](./Progressive%20disclosure.md) in a [harness](./Harness.md).
+一個可教的能力，打包成一個單位——把做好一件事的指示跟資源放在一起，留在 [environment](./Environment.md) 裡，直到一個 [context pointer](./Context%20pointer.md) 把它拉進 [context window](./Context%20window.md)，給當下的任務用。這是 [harness](./Harness.md) 裡 [progressive disclosure](./Progressive%20disclosure.md) 的最小單位。
 
-Skills are an open standard, defined at [agentskills.io](https://agentskills.io) — originally developed by Anthropic and since adopted by most major harnesses, so a skill written once works across them. The format is a folder containing:
+Skill 是一個開放標準，定義在 [agentskills.io](https://agentskills.io)——最早由 Anthropic 開發，後來被大多數主流 harness 採用，所以一個寫好的 skill 可以跨這些 harness 通用。它的格式是一個資料夾，裡面有：
 
-- A `SKILL.md` file — metadata (a name and description, at minimum) plus the instructions themselves
-- Optionally, scripts the [agent](./Agent.md) can run
-- Optionally, templates and reference material the instructions point to
+- 一個 `SKILL.md` 檔案——metadata（至少要有名稱跟描述）加上指示本身
+- 選擇性地，放 [agent](./Agent.md) 可以執行的 script
+- 選擇性地，放指示裡會提到的樣板跟參考資料
 
-Only the name and description sit in [context](./Context.md) by default. When the agent's task matches, it loads the rest. Until then, the skill takes up almost no room — a sentence or two of [tokens](./Token.md), however large its full instructions are.
+預設只有名稱跟描述會放進 [context](./Context.md) 裡。當 agent 的任務對上了，才會把其他部分載進來。在那之前，skill 幾乎不佔空間——不管它完整的指示有多長，都只佔一兩句話的 [token](./Token.md)。
 
-This distinguishes skills from [AGENTS.md](./AGENTS.md.md), which is loaded into every [session](./Session.md) regardless of the task. A skill is read when a particular kind of work comes up — releasing, scaffolding a new service, writing a migration — and ignored the rest of the time.
+這讓 skill 跟 [AGENTS.md](./AGENTS.md.md) 不一樣，後者不管任務是什麼，每個 [session](./Session.md) 都會載入。Skill 是在特定種類的工作出現的時候才被讀取——上線、幫新服務搭骨架、寫一個 migration——其他時候都不理它。
 
-_Avoid:_ "[tool](./Tool.md)" — a tool is what the agent _calls_; a skill is instructions it _reads_.
+_避免使用：_「[tool](./Tool.md)」——tool 是 agent「呼叫」的東西；skill 是它「讀」的指示。
 
-_Usage:_
+_使用情境：_
 
-"Where should I put the deploy runbook?"
+「部署手冊該放在哪裡？」
 
-"As a skill — the agent loads it only when the task involves deploys. In AGENTS.md it'd burn tokens on every [turn](./Turn.md) for something we use weekly."
+「放成一個 skill——agent 只有在任務牽涉到部署的時候才會載入它。放在 AGENTS.md 裡的話，每個 [turn](./Turn.md) 都要為了一個我們一週只用一次的東西燒 token。」

@@ -1,19 +1,19 @@
 ---
-description: Having the agent build a quick, rough version when conversation is too low-fidelity and you need a real artifact to talk about.
+description: 在對話太低解析度、需要一個真正的產出物才能討論下去時，讓 agent 生出一個快速、粗略的版本。
 ---
 
-Having the [agent](./Agent.md) build a quick, rough version of something, for when conversation is too low-fidelity and you need a real artifact to talk about.
+讓 [agent](./Agent.md) 生出一個快速、粗略的版本，用在對話已經太低解析度、你需要一個真正的產出物才能討論下去的時候。
 
-[Grilling](./Grilling.md) resolves design decisions in conversation. Conversation is cheap, but it's low-fidelity: some questions can't be answered in words — how an interaction feels, whether an API shape is ergonomic in real calling code, whether the layout works at real data sizes. The interview hits a question and your honest answer is "I don't know, I'd have to see it." Past that point the discussion circles. Instead, have the agent build the thing, look at it, and come back to the conversation with an answer.
+[Grilling](./Grilling.md) 是靠對話來解決設計決策的。對話很便宜，但解析度低：有些問題沒辦法用言語回答——一個互動起來的手感如何、某個 API 的形狀在真正呼叫它的程式碼裡好不好用、版面在真實資料量下撐不撐得住。訪談問到這種問題，你誠實的答案就是「我不知道，我得看到才知道」。過了這個點，討論就會一直繞圈子。這時候，讓 agent 把東西做出來，看一看，再帶著答案回到對話裡。
 
-Agents lower the cost of building, which is what makes this practical. A rough version that used to take a day to mock up now takes minutes, so it's worth doing routinely. It's a [human-in-the-loop](./Human-in-the-loop.md) technique: the prototype is there for you to react to.
+Agent 讓「做出來」的成本變低了，這就是這個做法可行的原因。以前要花一天才能拼出來的粗略版本，現在幾分鐘就有了，所以值得常態性地這樣做。這是一種 [human-in-the-loop](./Human-in-the-loop.md) 的技巧：prototype 就放在那裡，讓你去對它做反應。
 
-You usually don't stop at one look. Iterate with the prototype — react, ask for a change, react again — so each round resolves another decision against the real artifact, at a higher fidelity than conversation allows.
+你通常不會只看一次就停。用 prototype 反覆迭代——反應、要求改動、再反應一次——讓每一輪都能對著真正的產出物解決一個決策，解析度比對話能給的高。
 
-A prototype doesn't have to be all-scrappy. You can build the pieces you're actually evaluating to production quality, so when the decision lands, the component or API you reacted to can transfer into the real codebase. This makes prototyping essential material for the [spec](./Spec.md) to reference.
+Prototype 不必整個都很粗糙。你可以把你真正在評估的那些部分做到 production 品質，這樣決策一旦定案，你當時反應過的那個元件或 API，就能直接搬進真正的 codebase。這讓 prototyping 成為 [spec](./Spec.md) 可以引用的重要素材。
 
-_Usage:_
+_使用情境：_
 
-"We've spent half an hour arguing about whether the wizard should be one page or three steps."
+「我們已經吵了半小時，wizard 到底該是一頁還是三個步驟。」
 
-"Words won't settle it — have the agent prototype both. We'll click through them and know in five minutes."
+「用言語講不清楚——讓 agent 把兩種都做出來 prototype。我們點點看，五分鐘就知道了。」

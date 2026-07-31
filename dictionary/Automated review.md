@@ -1,17 +1,17 @@
 ---
-description: "An agent reviewing another agent's work, often with a different model or system prompt. Non-deterministic: it forms a judgement."
+description: "一個 agent 在審查另一個 agent 的工作成果，通常用不同的 model 或 system prompt。非確定性：它會形成一個判斷。"
 ---
 
-An [agent](./Agent.md) reviewing another agent's work, often with a different [model](./Model.md) or [system prompt](./System%20prompt.md). Non-deterministic: it forms a judgement. Runs anywhere — pre-merge on a PR, post-hoc on commit history, mid-session as a [subagent](./Subagent.md). An LLM-as-judge in CI is automated review, not an [automated check](./Automated%20check.md); what the assertion _does_ decides the category, not where it runs.
+一個 [agent](./Agent.md) 審查另一個 agent 的工作成果，通常用不同的 [model](./Model.md) 或 [system prompt](./System%20prompt.md)。非確定性：它會形成一個判斷。可以在任何地方跑——PR 合併前、事後審查 commit 歷史、session 進行中當一個 [subagent](./Subagent.md) 跑。在 CI 裡跑一個 LLM-as-judge 屬於 automated review，不是 [automated check](./Automated%20check.md)；決定分類的是這個斷言在「做什麼」，不是它跑在哪裡。
 
-The separation from the working agent is what makes it work. Asking the agent that wrote the code to review its own work gets you very little — the [session](./Session.md) that produced the bug also contains the reasoning that produced it, and the agent reads its own conclusions back as confirmation. A reviewer with a fresh [context window](./Context%20window.md) has none of that attachment: it sees the diff the way a stranger would, which is what review depends on. A different model or a review-specific system prompt sharpens this further — different blind spots, and a system prompt scoped to what you actually care about (security, API contracts, performance) rather than a vague "look for problems".
+跟寫程式碼的那個 agent 分開，正是這個做法有效的原因。叫寫出程式碼的那個 agent 自己審查自己的工作，得到的東西通常很少——產生 bug 的那個 [session](./Session.md) 裡，也裝著產生這個 bug 的那套推理過程，agent 讀回自己的結論時，只會把它當成確認。一個帶著全新 [context window](./Context%20window.md) 的審查者沒有這種包袱：牠看這份 diff 的方式就像一個陌生人，而 review 要靠的正是這種陌生感。換一個 model，或用一個專門為審查寫的 system prompt，可以再加強這一點——不同的盲點，加上一個聚焦在你真正在意的事（安全性、API 合約、效能）的 system prompt，而不是一句籠統的「找找看有沒有問題」。
 
-It slots between the other review layers. Automated checks are deterministic and catch what can be asserted mechanically; [human review](./Human%20review.md) is expensive and scales worst. Automated review sits in the middle: it catches judgement-shaped problems — a misleading function name, a missed edge case — at machine cost. Because it's non-deterministic, it can miss things and flag non-issues; treat it as a filter that raises the floor before a human looks, not a gate that replaces one.
+它卡在其他審查層之間。Automated check 是確定性的，能抓到能被機械斷言的東西；[human review](./Human%20review.md) 成本高，也是最難擴大規模的一層。Automated review 卡在中間：它用機器的成本，抓那些需要判斷力的問題——一個誤導性的函式名稱、一個漏掉的邊界情況。因為它是非確定性的，它可能漏掉問題，也可能誤報不存在的問題；把它當成一道在人看之前先拉高底線的濾網，而不是一道能取代人的關卡。
 
-_Avoid:_ "AI review" / "agent review" — too vague to distinguish from the working agent itself.
+_避免使用：_「AI review」／「agent review」——太模糊，分不清跟寫程式碼的那個 agent 本身有什麼不同。
 
-_Usage:_
+_使用情境：_
 
-"We're getting too many bad PRs from the [AFK](./AFK.md) runs."
+「我們從 [AFK](./AFK.md) 跑出來的 PR 品質太差的太多了。」
 
-"Add an automated review step before merge — different model, separate system prompt, scoped to security and contract changes."
+「合併前加一道 automated review——用不同的 model、獨立的 system prompt，聚焦在安全性跟合約的變更上。」

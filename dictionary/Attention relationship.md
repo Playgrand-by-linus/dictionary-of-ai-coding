@@ -1,25 +1,25 @@
 ---
-description: The pairing between two tokens — meaningful pairs influence each other more than unrelated ones. A context of N tokens has ~N² of these.
+description: 兩個 token 之間的配對——有意義的配對彼此的影響力比不相關的配對大。一個 N 個 token 的 context 大約有 N² 組這種配對。
 ---
 
-When predicting each [token](./Token.md), the [model](./Model.md) factors in every other token in the [context](./Context.md) — some heavily, others barely at all. The pairing between two tokens is an **attention relationship**, and meaningful pairs ("her" with "Sarah", or a `getUser()` call with its `function getUser` definition) influence each other more than unrelated ones. A context of N tokens has on the order of N² relationships.
+在預測每一個 [token](./Token.md) 的時候，[model](./Model.md) 會把 [context](./Context.md) 裡其他每一個 token 都納入考量——有些考量得多，有些幾乎不考量。兩個 token 之間的配對就是一組 **attention relationship**，而有意義的配對（例如「她」跟「Sarah」，或是一次 `getUser()` 呼叫跟它的 `function getUser` 定義）彼此的影響力，比不相關的配對大。一個有 N 個 token 的 context，大約會有 N² 量級的關係。
 
-The pairings are where the model's apparent understanding lives. When it resolves a pronoun, it's because the attention relationship between "her" and "Sarah" is strong. When it calls a function with the right arguments, the relationship between the call site and the definition it read earlier is doing the work. None of this is looked up — it's computed fresh on every [model provider request](./Model%20provider%20request.md), for every pair.
+這些配對，正是 model 表面上「理解」的來源。當它解析一個代名詞時，是因為「她」跟「Sarah」之間的 attention relationship 很強。當它用對的參數呼叫一個函式時，靠的是呼叫點跟它先前讀過的定義之間的關係在起作用。這一切都不是查表得來的——是每一次 [model provider request](./Model%20provider%20request.md) 裡，針對每一對關係重新算出來的。
 
-The N² figure is worth sitting with, because it grows faster than intuition suggests:
+N² 這個數字值得好好想一下，因為它成長的速度比直覺快很多：
 
-| Context size   | Pairings (~N²) |
-| -------------- | -------------- |
-| 1,000 tokens   | ~1 million     |
-| 10,000 tokens  | ~100 million   |
-| 100,000 tokens | ~10 billion    |
+| Context 大小  | 配對數量 (~N²) |
+| ------------- | -------------- |
+| 1,000 token   | 約 100 萬      |
+| 10,000 token  | 約 1 億        |
+| 100,000 token | 約 100 億      |
 
-Each pairing is also computed more than once. Models have multiple attention heads — exact counts for frontier models are unpublished, but fifty to a hundred is a reasonable guess — and each head computes its own version of every relationship. So every pairing in the table above is duplicated across every head. That's a lot of pairings.
+每一組配對，實際上還會被算不只一次。Model 有多個 attention head——頂尖 model 確切的數量沒有公開，但五十到一百個是合理的猜測——而每個 head 都會各自算一次每一組關係。所以上表裡的每一組配對，都要在每個 head 上重複算一次。這是非常龐大的配對數量。
 
-Only a small number of these relationships matter for any given task. The pairing between your instruction and the code it governs is one of a handful that count; almost everything else in the pool is noise. And the two grow at different rates: the relationships that matter stay roughly constant, while the total pool grows quadratically with context size. At 1,000 tokens, the pairing you care about is one in a million; at 100,000 tokens, it's one in ten billion. This is the arithmetic underneath the [attention budget](./Attention%20budget.md), and [attention degradation](./Attention%20degradation.md) is what it feels like when the relationships that matter get too thin a share.
+在任何一次任務裡，真正重要的關係只佔其中一小部分。你的指示跟它所管轄的程式碼之間的配對，就是少數幾組真正算數的關係之一；剩下大部分都是雜訊。而這兩種數量成長的速度不一樣：真正重要的關係大致維持不變，配對總數卻隨著 context 大小呈平方成長。在 1,000 個 token 時，你關心的那組配對是一百萬分之一；到了 100,000 個 token，變成一百億分之一。這就是 [attention budget](./Attention%20budget.md) 背後的算術，而 [attention degradation](./Attention%20degradation.md) 就是當真正重要的關係分到太薄的一份時的感覺。
 
-_Usage:_
+_使用情境：_
 
-"It keeps confusing the two `user` symbols across the diff — sounds like we're in the [dumb zone](./Smart%20zone.md)."
+「它一直搞混 diff 裡的兩個 `user` 符號——聽起來我們是在 [dumb zone](./Smart%20zone.md) 裡。」
 
-"Yeah, the attention relationship between each call site and its declaration is fighting the other one — same token shape, different bindings. Rename one and the pairings sharpen."
+「對，每個呼叫點跟它宣告之間的 attention relationship 在互相干擾——token 形狀一樣，綁定的東西不一樣。把其中一個改名，配對就會變清楚。」
