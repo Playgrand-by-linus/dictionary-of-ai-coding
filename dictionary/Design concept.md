@@ -1,15 +1,15 @@
 ---
-description: The shared understanding of what's being built, held in common between user and agent but separate from any asset.
+description: 使用者跟 agent 對「正在做的東西」的共同理解，跟任何一項資產都是分開的。
 ---
 
-The shared understanding of what's being built, held in common between user and [agent](./Agent.md) but separate from any asset. Brooks' term (_The Design of Design_): the conversation, [handoff artifacts](./Handoff%20artifact.md), and the code are all assets that try to capture or reach the design concept, but none of them _are_ it. Quality of the design concept is felt through the quality of the conversation that built it.
+使用者跟 [agent](./Agent.md) 對「正在做的東西」的共同理解，跟任何一項資產都是分開的。這是 Brooks 的用詞（《The Design of Design》）：對話、[handoff artifact](./Handoff%20artifact.md)、還有程式碼，都是試著捕捉或逼近這個 design concept 的資產，但沒有一個「就是」它。Design concept 的品質，是透過打造它的那場對話的品質感受出來的。
 
-The term names the gap behind a familiar frustration: the agent writes exactly what you asked for and it's still wrong. The usual cause is that you hadn't fully figured out what you wanted. The design concept wasn't finished in your own head — your prompt captured the parts you'd worked out, and was silent on the parts you hadn't. The agent filled those silences with its own assumptions, because there was nothing to align with. Nothing malfunctioned. There was no shared design concept, because there wasn't yet a whole one to share.
+這個詞點出一個常見挫折背後的落差：agent 完全照你說的寫了，結果還是不對。通常的原因是，你自己都還沒把想要的東西想清楚。Design concept 在你自己腦子裡都還沒定案——你的 prompt 只捕捉到你已經想清楚的那部分，其他沒想清楚的部分就是空白。Agent 把那些空白用自己的假設填起來，因為根本沒有東西可以對齊。沒有任何東西故障。只是沒有共同的 design concept，因為根本還沒有一個完整的可以共同擁有。
 
-You can tell a design concept is shared the same way you can with a colleague: the other party starts answering questions you haven't asked yet the way you would. Until then, the work is conversation — [grilling](./Grilling.md) is the deliberate version — and writing a [spec](./Spec.md) too early just captures the misalignment in a more durable asset. The design concept also moves as you learn; assets lag it, which is why a spec faithful to last week's understanding can still mislead this week's session.
+要判斷 design concept 是不是真的共有，方法跟判斷跟同事是不是真的對齊一樣：對方開始用你會用的方式，回答你還沒問出口的問題。在那之前，該做的事是對話——[grilling](./Grilling.md) 是這件事刻意去做的版本——太早寫 [spec](./Spec.md)，只是把彼此的落差用更持久的形式記錄下來而已。Design concept 也會隨著你的理解一起變動；資產永遠落後它一步，這就是為什麼一份忠實反映上星期理解的 spec，還是可能誤導這星期的 session。
 
-_Usage:_
+_使用情境：_
 
-"It's writing exactly what I asked for and it's still wrong."
+「它完全照我說的寫，結果還是不對。」
 
-"You don't share a design concept yet — it's filling gaps with assumptions. Keep talking until cancellation, refunds, and partial fulfilment all line up between you before you let it write a spec."
+「你們還沒有共同的 design concept——它是在用假設填空白。先繼續談，把取消、退款、部分履約這些都對齊了，再讓它動手寫 spec。」

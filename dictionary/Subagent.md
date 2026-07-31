@@ -1,15 +1,15 @@
 ---
-description: An agent spawned by another agent via a tool call. Runs in its own session, reports a single tool result. Cannot spawn further subagents.
+description: 由另一個 agent 透過 tool call 產生的 agent。在自己的 session 裡執行，回報單一 tool result。不能再產生 subagent。
 ---
 
-An [agent](./Agent.md) spawned by another agent via a [tool call](./Tool%20call.md). Runs in its own [session](./Session.md) with its own [context window](./Context%20window.md), and reports a single [tool result](./Tool%20result.md) back. Distinct from a [handoff](./Handoff.md) — the parent specifically expects a return; a handoff has no return path. **Cannot spawn further subagents** — the tree is one level deep. Subagents exist to isolate [context](./Context.md), not to compose hierarchies.
+由另一個 [agent](./Agent.md) 透過 [tool call](./Tool%20call.md) 產生的 agent。在自己的 [session](./Session.md) 裡執行，有自己的 [context window](./Context%20window.md)，並回報單一 [tool result](./Tool%20result.md)。跟 [handoff](./Handoff.md) 不同——parent 明確期待一個回傳結果；handoff 沒有回傳路徑。**不能再產生 subagent**——這棵樹只有一層深。Subagent 存在的目的是隔離 [context](./Context.md)，不是拿來組出階層架構。
 
-The point is to keep noisy work out of the parent's context. A broad search or a long file-reading expedition produces pages of tool results, most of which matter only long enough to find the answer. Run inside the parent and all of it stays in the parent's context for the rest of the session. Run inside a subagent and the noise fills a disposable window instead — only the final report lands in the parent's context. The report is a [secondary source](./Secondary%20source.md): the parent gets the subagent's account of what it found, not the raw results, so anything the report leaves out is invisible to the parent.
+重點是把吵雜的工作擋在 parent 的 context 之外。一次大範圍搜尋，或一趟很長的讀檔過程，會產生好幾頁的 tool result，其中大多數只在找到答案之前那一刻有用。在 parent 裡面跑，這些東西就會一直留在 parent 的 context 裡，跟著剩下的 session。在 subagent 裡面跑，雜訊就填滿一個用完即丟的 window，只有最後的報告會進到 parent 的 context。這份報告是 [secondary source](./Secondary%20source.md)：parent 拿到的是 subagent 對它找到什麼的說法，不是原始結果，所以報告裡沒提到的東西，對 parent 來說就是看不見的。
 
-Subagents also run concurrently — a parent can fan several out at once over independent pieces of work.
+Subagent 也可以同時執行——parent 可以一次對好幾個獨立的工作分頭展開。
 
-_Usage:_
+_使用情境：_
 
-"The grep results are blowing out my context."
+「grep 的結果快把我的 context 塞爆了。」
 
-"Spawn a subagent to do the search — it'll burn its own context window on the noise and report back the two file paths you actually need."
+「叫一個 subagent 去做搜尋——雜訊會燒在它自己的 context window 裡，最後只回報你真正需要的那兩個檔案路徑。」

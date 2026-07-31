@@ -1,19 +1,19 @@
 ---
-description: A file in the environment that the harness loads into the context window at session start — the project's standing brief to the agent.
+description: harness 在 session 開始時載入 context window 的檔案，放在 environment 裡——寫給 agent 的專案標準提報。
 ---
 
-A file in the [environment](./Environment.md) that the [harness](./Harness.md) loads into the [context window](./Context%20window.md) at [session](./Session.md) start — the project's standing brief to the [agent](./Agent.md). Cross-harness convention; some harnesses also have their own variant (Claude Code's is CLAUDE.md).
+一個放在 [environment](./Environment.md) 裡的檔案，[harness](./Harness.md) 會在 [session](./Session.md) 開始時把它載入 [context window](./Context%20window.md)——是寫給 [agent](./Agent.md) 的專案標準提報。這是跨 harness 的慣例；有些 harness 也有自己的變體（Claude Code 用的是 CLAUDE.md）。
 
-Because it loads automatically, it's one way to avoid repeating yourself across sessions. The [model](./Model.md) is [stateless](./Stateless.md) — a correction you give in one session is gone in the next, and you end up telling every fresh session that the project uses pnpm, that tests run with a particular flag, that a directory is generated and shouldn't be touched. When you've corrected the agent for the same thing twice, that correction is a candidate line for AGENTS.md.
+因為它是自動載入的，這是避免跨 session 重複交代同一件事的辦法之一。[Model](./Model.md) 是 [stateless](./Stateless.md) 的——你在一個 session 裡做的修正，到下一個 session 就沒了，於是每次開新 session 都得重講一次：這個專案用 pnpm、測試要加特定 flag、某個目錄是產生出來的不要動。同一件事修正 agent 兩次之後，這條修正就是該寫進 AGENTS.md 的候選內容。
 
-Suitable content is whatever the agent can't derive from the code: build and test commands, conventions the codebase doesn't make obvious, hard constraints ("never edit the generated client"). Short and declarative — it's a brief, not documentation.
+適合放進去的內容，是 agent 沒辦法從程式碼推導出來的東西：build 跟測試指令、程式碼本身看不出來的慣例、硬性限制（「絕對不要改產生出來的 client」）。要短、要直述——它是一份提報，不是文件。
 
-The trade-off is that everything in it is always loaded. Instructions accumulate, most of them irrelevant to any given task, and a long AGENTS.md both costs tokens and dilutes itself — the more instructions in context, the less reliably the model follows any one of them.
+代價是裡面的每一行都會一直被載入。指示會越堆越多，大部分跟手上的任務無關，而一份很長的 AGENTS.md 既耗費 token，也會稀釋自己——context 裡的指示越多，model 確實遵守其中任何一條的機率就越低。
 
-_Avoid:_ using AGENTS.md for content that should be [progressively disclosed](./Progressive%20disclosure.md) — anything in it pays a [token](./Token.md) cost every [turn](./Turn.md), in every session, whether or not that session needs it. A style guide can go behind a [skill](./Skill.md) or a [context pointer](./Context%20pointer.md) instead; keep AGENTS.md for the lines that apply everywhere.
+*避免使用：*把該 [progressively disclosed](./Progressive%20disclosure.md) 的內容放進 AGENTS.md——裡面的東西每個 [turn](./Turn.md)、每個 session 都要付一次 [token](./Token.md) 成本，不管那個 session 用不用得到。風格指南可以放到 [skill](./Skill.md) 或 [context pointer](./Context%20pointer.md) 後面；AGENTS.md 留給那些到處都用得到的內容。
 
-_Usage:_
+_使用情境：_
 
-"Why is every session starting with 4k tokens already burned?"
+「為什麼每個 session 一開始就已經燒掉 4k token 了？」
 
-"Check AGENTS.md — someone pasted the entire style guide in there instead of putting it behind a skill."
+「去看看 AGENTS.md——一定是誰把整份風格指南貼進去了，沒放到 skill 後面。」

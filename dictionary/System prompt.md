@@ -1,17 +1,17 @@
 ---
-description: The instructions the harness prepends to every model provider request — the agent's standing brief. Usually stable across a session.
+description: harness 附加在每一次 model provider request 前面的指示——agent 的長期任務說明。在一個 session 裡通常維持不變。
 ---
 
-The instructions the [harness](./Harness.md) prepends to every [model provider request](./Model%20provider%20request.md) — the [agent](./Agent.md)'s standing brief: who it is, how to behave, which [tools](./Tool.md) it can call, what conventions to follow. Usually stable across a [session](./Session.md).
+[harness](./Harness.md) 附加在每一次 [model provider request](./Model%20provider%20request.md) 前面的指示——[agent](./Agent.md) 的長期任務說明：它是誰、該怎麼表現、能呼叫哪些 [tool](./Tool.md)、該遵守什麼慣例。在一個 [session](./Session.md) 裡通常維持不變。
 
-The system prompt is written by the harness vendor, not by you, and in coding harnesses it's big — often tens of thousands of [tokens](./Token.md) of behavioural rules, tool descriptions, and edge-case handling, all paid as [input tokens](./Input%20tokens.md) on every [turn](./Turn.md). Your own standing instructions ride along with it: files like [AGENTS.md](./AGENTS.md.md) are loaded next to the system prompt at the start of the session, so the [model](./Model.md) reads the vendor's brief and yours together before it ever sees your message.
+system prompt 是 harness 的廠商寫的，不是你寫的，而且在 coding harness 裡通常很大——常常是好幾萬個 [token](./Token.md) 的行為規則、tool 描述、邊角案例處理，而且每個 [turn](./Turn.md) 都要當作 [input token](./Input%20tokens.md) 付費。你自己的長期指示會跟著一起搭便車：像 [AGENTS.md](./AGENTS.md.md) 這樣的檔案，會在 session 開始時載入到 system prompt 旁邊，所以 [model](./Model.md) 是先把廠商的說明跟你的一起讀完，才看到你的訊息。
 
-Because it's identical on every request, it forms the start of the [prefix cache](./Prefix%20cache.md) — which is part of why harnesses keep it fixed for a whole session rather than editing it as they go.
+因為它在每次請求裡都一模一樣，所以構成了 [prefix cache](./Prefix%20cache.md) 的開頭——這也是為什麼 harness 會讓它在整個 session 裡固定不變，而不是邊跑邊改。
 
-Models are trained to prioritise the system prompt over user messages. So when an agent insists on a convention you never asked for, or formats output in a way you can't shake, it's usually obeying its system prompt — and your message is losing the argument. Some harnesses are customisable: they give you full access to the system prompt, so you can read what the agent is actually being told and change it.
+model 被訓練成優先聽從 system prompt，而不是使用者訊息。所以當一個 agent 堅持某個你從沒要求過的慣例，或是用一種你怎麼樣都改不掉的格式輸出，通常是它在服從 system prompt——而你的訊息在這場拉鋸裡輸了。有些 harness 是可以自訂的：它們讓你完整看到 system prompt，你可以讀到 agent 實際上被告知了什麼，並加以修改。
 
-_Usage:_
+_使用情境：_
 
-"Two harnesses, same model, totally different behavior on the same prompt."
+「兩個 harness，同一個 model，同樣的 prompt，行為完全不一樣。」
 
-"Different system prompts. One's tuned for terse code edits, the other for explaining — that's where the divergence lives, before your message even arrives."
+「system prompt 不一樣。一個調校成寫精簡的程式碼修改，另一個調校成會解釋——差異在你的訊息送到之前就已經存在了。」

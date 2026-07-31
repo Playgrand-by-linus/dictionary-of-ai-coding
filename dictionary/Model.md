@@ -1,17 +1,17 @@
 ---
-description: The parameters. Stateless — does next-token prediction and nothing else. Cannot do anything agentic on its own.
+description: Parameters。Stateless——只做 next-token prediction，別的都不做。自己一個沒辦法做任何 agentic 的事。
 ---
 
-The [parameters](./Parameters.md). [Stateless](./Stateless.md) — does [next-token prediction](./Next-token%20prediction.md) and nothing else. "Claude Opus 4.x" and "GPT-5.x" are models. On its own a model can't do anything agentic; it has to be [harnessed](./Harness.md).
+[Parameters](./Parameters.md)。[Stateless](./Stateless.md)——只做 [next-token prediction](./Next-token%20prediction.md)，別的都不做。「Claude Opus 4.x」跟「GPT-5.x」都是 model。Model 自己一個沒辦法做任何 agentic 的事；它得被 [harness](./Harness.md) 包起來才行。
 
-Models can't read files, run commands, browse the web, or remember yesterday — it takes [tokens](./Token.md) in and predicts tokens out, once per [model provider request](./Model%20provider%20request.md). Everything that feels like an [agent](./Agent.md) working — choosing [tools](./Tool.md), reading results, looping until the task is done — is the harness orchestrating many of those predictions in a row.
+Model 不能讀檔案、跑指令、瀏覽網頁，也記不住昨天發生的事——它就是吃 [token](./Token.md) 進去，每一次 [model provider request](./Model%20provider%20request.md) 預測出 token 出來。所有感覺起來像 [agent](./Agent.md) 在做事的部分——挑 [tool](./Tool.md)、讀結果、一直循環到任務做完——其實都是 harness 把一大串這種預測串起來執行。
 
-[Model providers](./Model%20provider.md) ship models in tiers: a large one that's smartest but slow and expensive, and smaller ones that are faster and cheaper but less capable. Picking a tier is a real decision — heavyweight for planning and hard debugging, lightweight for mechanical changes — and harnesses let you switch mid-[session](./Session.md).
+[Model provider](./Model%20provider.md) 出的 model 有分等級：一個最聰明但慢又貴的大型版本，還有幾個比較快、比較便宜、但能力比較差的小型版本。挑哪個等級是一個真正的決定——規劃跟難搞的除錯用重量級的，機械式的改動用輕量級的——harness 會讓你在 [session](./Session.md) 中途切換。
 
-Being strict about the word also sharpens diagnosis. "The model is bad at this" is a specific claim — the same model in a different harness, or with a different [context](./Context.md), often behaves completely differently. Before blaming the model, check what it was given: most disappointing output traces back to context or harness, not parameters.
+對這個詞嚴格一點，也能讓診斷更準。「這個 model 不擅長這個」是一個很具體的說法——同一個 model 換一個 harness，或者換一個不同的 [context](./Context.md)，常常表現得完全不一樣。怪 model 之前，先檢查它拿到了什麼：大部分讓人失望的輸出，根源都是 context 或 harness，不是 parameters。
 
-_Usage:_
+_使用情境：_
 
-"Should we switch the model from Sonnet to Opus for the planning step?"
+「規劃這一步要不要把 model 從 Sonnet 換成 Opus？」
 
-"Try it — but the harness is doing most of the lifting on this task. The model swap won't help if the [system prompt](./System%20prompt.md) and tools are wrong."
+「試試看——不過這個任務裡大部分的工作是 harness 在做。如果 [system prompt](./System%20prompt.md) 跟 tool 都不對，換 model 也沒用。」

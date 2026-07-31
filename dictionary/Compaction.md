@@ -1,17 +1,17 @@
 ---
-description: A handoff done in-memory: the previous session's history is summarised and seeds a fresh session. Lossy — detail traded for headroom.
+description: "一種在記憶體裡完成的 handoff：前一個 session 的歷史被摘要,再用摘要開一個全新的 session。有損——用細節換取空間。"
 ---
 
-A [handoff](./Handoff.md) done in-memory: the previous [session](./Session.md)'s history is summarised, and the summary seeds a fresh session. Lossy by design: the transcript is a [primary source](./Primary%20source.md), the summary a [secondary source](./Secondary%20source.md) — detail traded for headroom. Triggered manually by the user, or automatically via [autocompact](./Autocompact.md).
+一種在記憶體裡完成的 [handoff](./Handoff.md)：前一個 [session](./Session.md) 的歷史被摘要，再用這份摘要開一個全新的 session。設計上就是有損的：transcript 是 [primary source](./Primary%20source.md)，摘要是 [secondary source](./Secondary%20source.md)——用細節換取空間。可以由使用者手動觸發，也可以透過 [autocompact](./Autocompact.md) 自動觸發。
 
-The mechanism: the [context window](./Context%20window.md) is finite, and a long session fills it — every [tool result](./Tool%20result.md), every file read, every wrong turn stays in history. When it gets heavy, the [harness](./Harness.md) asks the [model](./Model.md) to summarise the session, throws the original history away, and seeds a fresh session with the summary. Whatever didn't make it into the summary is gone from the context. Some harnesses soften this by keeping the old transcript on disk and leaving a [context pointer](./Context%20pointer.md) to it in the summary — the secondary source links back to its primary source, so a detail the summary lost can be recovered by re-reading the original.
+運作機制是這樣：[context window](./Context%20window.md) 是有限的，一個長 session 會把它填滿——每一個 [tool result](./Tool%20result.md)、每一次讀檔、每一次走錯的方向都留在歷史裡。當它變得太重時，[harness](./Harness.md) 會請 [model](./Model.md) 把 session 摘要一遍，丟掉原本的歷史，再用這份摘要開一個新 session。沒有寫進摘要裡的東西，就從 context 裡消失了。有些 harness 會軟化這個問題：把舊的 transcript 留在硬碟上，在摘要裡留一個指向它的 [context pointer](./Context%20pointer.md)——這個 secondary source 連回它的 primary source，所以摘要弄丟的細節還能靠重讀原文找回來。
 
-The summary is written by the model, so it can be prompted. "Preserve the schema decisions" makes the generated artifact more deliberate. Timing matters too — compact at a phase boundary, after the plan is settled, not mid-task.
+摘要是由 model 寫的，所以可以下指示。「保留 schema 相關的決定」這樣的提示，會讓產生出來的成果更用心。時機也很重要——在階段的分界點、計畫已經定下來之後 compact，不要在任務進行到一半的時候做。
 
-Contrast with [clearing](./Clearing.md), which drops everything and starts cold: compaction tries to carry the essentials across; clearing bets they're already written down somewhere better.
+跟 [clearing](./Clearing.md) 對比一下：clearing 什麼都丟掉，從冷開始；compaction 試著把重點帶過去——clearing 賭的是這些重點已經寫在別的地方更好的位置了。
 
-_Usage:_
+_使用情境：_
 
-"[Context](./Context.md)'s getting heavy and I still have the test pass to do."
+「[Context](./Context.md) 越來越重了，我還有測試沒跑完。」
 
-"Compact before you start — write what must survive into the summary prompt so the new session keeps the schema decisions and drops the exploration."
+「先 compact——把一定要留下來的東西寫進摘要的提示裡，這樣新 session 才會保留 schema 的決定，丟掉探索過程。」

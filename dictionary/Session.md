@@ -1,17 +1,17 @@
 ---
-description: One bounded run of interaction with an agent. Starts empty, accumulates, ends when cleared, closed, or compacted into a fresh session.
+description: 跟 agent 互動的一次有邊界的過程。從空的開始累積，在被清除、關閉、或 compact 成新 session 時結束。
 ---
 
-One bounded run of interaction with an [agent](./Agent.md). Starts empty, accumulates messages, [tool results](./Tool%20result.md), and files read, and ends when [cleared](./Clearing.md), closed, or [compacted](./Compaction.md) into a fresh session. The session is what _fills_ the [context window](./Context%20window.md): if the context window is the box, the session is the stuff slowly filling it up. Work too large for a single context window must be split across sessions.
+跟 [agent](./Agent.md) 互動的一次有邊界的過程。從空的開始，累積訊息、[tool result](./Tool%20result.md)、跟讀過的檔案，在被 [cleared](./Clearing.md)、關閉、或 [compact](./Compaction.md) 成一個新 session 的時候結束。Session 就是把 [context window](./Context%20window.md) 填滿的東西：如果 context window 是那個箱子，session 就是慢慢把箱子填滿的東西。大到一個 context window 裝不下的工作，就得拆到好幾個 session 裡做。
 
-The session's message history is the agent's working memory. The [model](./Model.md) is [stateless](./Stateless.md), so everything it appears to remember — what you asked for, what the tests said, what it decided three turns ago — is in the message history, re-sent with every [model provider request](./Model%20provider%20request.md). Whatever isn't in the session doesn't exist for the agent.
+Session 的訊息歷史，就是 agent 的工作記憶。[Model](./Model.md) 是 [stateless](./Stateless.md) 的，所以它看起來記得的每一件事——你要求了什麼、測試結果是什麼、它三個 turn 前做了什麼決定——全都在這份訊息歷史裡，隨著每一次 [model provider request](./Model%20provider%20request.md) 一起重新送出去。不在 session 裡的東西，對 agent 來說就是不存在。
 
-That memory ends with the session. A new session starts from nothing: the agent that knew your codebase well at the end of yesterday's session knows none of it this morning. What survives is the [filesystem](./Filesystem.md) — files written during one session can be read by the next, which is what [handoffs](./Handoff.md), [memory systems](./Memory%20system.md), and [AGENTS.md](./AGENTS.md.md) rely on.
+這份記憶會隨著 session 結束而消失。一個新 session 從零開始：昨天 session 結束時對你的 codebase 瞭若指掌的 agent，今天早上什麼都不記得。留下來的是 [filesystem](./Filesystem.md)——一個 session 裡寫的檔案，下一個 session 讀得到，這就是 [handoff](./Handoff.md)、[memory system](./Memory%20system.md)、跟 [AGENTS.md](./AGENTS.md.md) 賴以運作的基礎。
 
-You choose where a session ends. Everything in a session influences every later [turn](./Turn.md), so unrelated tasks done in one session leave residue that colours the next answer. One task per session keeps the context relevant; finishing a task is a natural point to clear.
+Session 在哪裡結束，是你決定的。Session 裡的每一件事都會影響之後每一個 [turn](./Turn.md)，所以在同一個 session 裡做不相關的任務，會留下殘留物，染色到後面的答案。一個 session 只做一件任務，能讓 context 保持相關；一件任務做完，就是清掉的好時機。
 
-_Usage:_
+_使用情境：_
 
-"How long can one session run before it falls apart?"
+「一個 session 能撐多久才會開始垮掉？」
 
-"Depends on the work — a focused refactor stays sharp longer than open-ended research. Once the session bloats, hand off or compact, don't push through."
+「看工作內容——專注的重構撐得比開放式研究久。Session 一旦膨脹了，就 handoff 或 compact，不要硬撐下去。」

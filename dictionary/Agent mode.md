@@ -1,5 +1,5 @@
 ---
-description: A preset bundling a permission mode with behavioral instructions injected into the system prompt. Can flip mid-session.
+description: 一種預設組合，把 permission mode 跟注入 system prompt 的行為指示綁在一起。可以在 session 中途切換。
 aliases:
   - plan mode
   - accept-edits
@@ -7,20 +7,20 @@ aliases:
   - YOLO mode
 ---
 
-A preset that shapes how the [agent](./Agent.md) operates at runtime — bundles a [permission mode](./Permission%20mode.md) with behavioral instructions injected into the [system prompt](./System%20prompt.md). Examples: a default that prompts on risky calls, a **plan mode** that blocks edits and steers the agent toward research, an **accept-edits** mode that auto-approves edits, a **bypass permissions** mode (colloquially **YOLO mode**) that auto-approves everything. Can flip [mid-session](./Session.md).
+一種預設組合，決定 [agent](./Agent.md) 在執行時怎麼運作——把一個 [permission mode](./Permission%20mode.md) 跟注入 [system prompt](./System%20prompt.md) 的行為指示綁在一起。例如：預設模式會在有風險的呼叫上詢問；**plan mode** 會封鎖編輯、引導 agent 去做研究；**accept-edits** 模式會自動核准編輯；**bypass permissions** 模式（口語上叫 **YOLO mode**）會自動核准所有事情。可以在 [session](./Session.md) 中途切換。
 
-The bundling is what distinguishes a mode from a bare permission setting. A permission mode is only a gate: it decides which [tool calls](./Tool%20call.md) go through. A gate alone produces an agent that wants to edit but can't — it proposes the write, gets blocked, and tries another way. The injected instructions remove the want: plan mode doesn't just block edits, it tells the agent it's in a planning phase, so it reads, asks, and proposes instead of straining against the gate. Gate and steer point the same direction.
+把兩者綁在一起，正是 mode 跟單純的權限設定不一樣的地方。Permission mode 只是一道閘門：它決定哪些 [tool call](./Tool%20call.md) 能通過。光有閘門會做出一種 agent：牠想編輯卻不能——牠提出寫入請求，被擋下來，再試別的辦法。注入的指示把那個「想」拿掉了：plan mode 不只是封鎖編輯，它還告訴 agent 現在是規劃階段，所以 agent 會去讀、去問、去提案，而不是硬頂著閘門。閘門跟引導的方向是一致的。
 
-In practice, you change mode as your trust changes over the course of a task. The same task can pass through several modes: plan mode while the approach is still being shaped, the prompting default for the first delicate edits, accept-edits once the agent has shown it understands the change, bypass for an [AFK](./AFK.md) run inside a [sandbox](./Sandbox.md). Changing mode costs you nothing: the conversation continues exactly where it was, with new permissions and new instructions. If you find yourself approving every prompt without reading it, the mode is set tighter than your actual trust; if you keep rejecting edits, it's set looser.
+實務上，你會隨著任務過程中信任程度的變化去切換 mode。同一個任務可以經過好幾種 mode：做法還在成形時用 plan mode，最早幾筆細膩的編輯用預設的詢問模式，agent 表現出牠理解這個變更之後換成 accept-edits，[AFK](./AFK.md) 在 [sandbox](./Sandbox.md) 裡跑的時候用 bypass。切換 mode 不用付出任何代價：對話會從原本的地方繼續，只是換了新的權限跟新的指示。如果你發現自己每個提示都不看就核准，代表 mode 設得比你實際的信任程度還緊；如果你一直在拒絕編輯，代表設得太鬆了。
 
-_Vendor terms:_ Claude Code calls these "permission modes," Codex calls them "approval modes" — both predate behavioral bundling.
+\_廠商用詞：\_Claude Code 把這些叫做「permission mode」，Codex 叫做「approval mode」——兩者都早於行為綁定這個做法。
 
-_Usage:_
+_使用情境：_
 
-"It keeps editing files when I just want a plan."
+「它一直在改檔案，我只是想要一份計畫。」
 
-"Switch to plan mode — it'll block writes and stay in research."
+「切到 plan mode——它會封鎖寫入，停在研究階段。」
 
-"What about for the AFK run later?"
+「那之後的 AFK 跑法呢？」
 
-"Bypass mode, but only inside the sandbox."
+「Bypass mode，但只能在 sandbox 裡面用。」
